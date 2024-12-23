@@ -1,6 +1,8 @@
 /** @type {import('tailwindcss').Config} */
 
 import daisyui from 'daisyui';
+import filters from 'tailwindcss-filters';
+
 
 export default {
   content: [
@@ -11,6 +13,10 @@ export default {
     extend: {},
   },
   plugins: [
-   daisyui
+   daisyui,
+   filters
   ],
+  daisyui: {
+    themes: ["retro"],
+  },
 }
