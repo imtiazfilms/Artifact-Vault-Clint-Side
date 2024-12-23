@@ -54,7 +54,7 @@ const Register = () => {
                 text: "You have registered successfully!",
             });
 
-            navigate("/login");
+            navigate("/");
         } catch (error) {
             Swal.fire({
                 icon: "error",

@@ -60,7 +60,7 @@ const Navbar = () => {
                             </NavLink>
                         </ul>
                     </div>
-                    <div className="flex items-center gap-2">
+                    <div className="md:flex items-center gap-2 hidden">
                         <img
                             className="rounded-full h-[50px] w-[50px]"
                             src="https://i.ibb.co/6DCx92j/Gemini-Generated-Image-977h7y977h7y977h.jpg"
@@ -90,7 +90,7 @@ const Navbar = () => {
                             <p className="btn">Login</p>
                         </NavLink>
                     ) : (
-                        <div className="dropdown dropdown-end">
+                        <div className="dropdown dropdown-end z-50">
                             <div
                                 tabIndex={0}
                                 className="btn btn-ghost btn-circle avatar tooltip tooltip-bottom"

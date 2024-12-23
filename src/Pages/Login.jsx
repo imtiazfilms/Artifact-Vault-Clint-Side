@@ -1,11 +1,34 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { authContext } from "../Firebase/AuthProvider";
 import Swal from "sweetalert2";
 
 const Login = () => {
-    const { handelGoogleLogin } = useContext(authContext);
+    const { handelLogin, handelGoogleLogin } = useContext(authContext);
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
     const navigate = useNavigate();
+
+    const handleLogin = async (e) => {
+        e.preventDefault();
+        try {
+            await handelLogin(email, password);
+            Swal.fire({
+                icon: "success",
+                title: "Login Successful",
+                text: "You have logged in successfully!",
+                timer: 2000,
+                showConfirmButton: false,
+            });
+            navigate("/");
+        } catch (error) {
+            Swal.fire({
+                icon: "error",
+                title: "Login Failed",
+                text: error.message || "Invalid email or password. Please try again.",
+            });
+        }
+    };
 
     const handleGoogleLoginClick = async () => {
         try {
@@ -33,7 +56,7 @@ const Login = () => {
                 <h2 className="text-3xl font-bold text-center text-teal-600">
                     Login to ArtifactVault
                 </h2>
-                <form className="space-y-4">
+                <form onSubmit={handleLogin} className="space-y-4">
                     <div className="form-control">
                         <label className="label">
                             <span className="label-text">Email</span>
@@ -41,7 +64,10 @@ const Login = () => {
                         <input
                             type="email"
                             placeholder="Enter your email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
                             className="input input-bordered w-full"
+                            required
                         />
                     </div>
                     <div className="form-control">
@@ -51,14 +77,11 @@ const Login = () => {
                         <input
                             type="password"
                             placeholder="Enter your password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
                             className="input input-bordered w-full"
+                            required
                         />
-                    </div>
-                    <div className="form-control">
-                        <label className="flex items-center space-x-2">
-                            <input type="checkbox" className="checkbox checkbox-primary" />
-                            <span className="label-text">Remember me</span>
-                        </label>
                     </div>
                     <button type="submit" className="btn btn-primary w-full mt-2">
                         Login
@@ -73,18 +96,17 @@ const Login = () => {
                             Register here
                         </span>
                     </p>
-                    <p>
-                        <span
-                            onClick={() => navigate("/forgot-password")}
-                            className="text-teal-600 link link-hover cursor-pointer">
-                            Forgot Password?
-                        </span>
-                    </p>
                 </div>
                 <div className="divider">OR</div>
                 <div className="flex flex-col gap-4">
-                    <button onClick={handleGoogleLoginClick} className="btn btn-outline btn-primary flex items-center gap-2 justify-center">
-                    <img className="w-[45px]" src="https://i.ibb.co.com/BgbVwXz/icons8-google-logo-94.png" alt="" />
+                    <button
+                        onClick={handleGoogleLoginClick}
+                        className="btn btn-outline btn-primary flex items-center gap-2 justify-center">
+                        <img
+                            className="w-[24px]"
+                            src="https://i.ibb.co/BgbVwXz/icons8-google-logo-94.png"
+                            alt="Google logo"
+                        />
                         Login with Google
                     </button>
                 </div>
