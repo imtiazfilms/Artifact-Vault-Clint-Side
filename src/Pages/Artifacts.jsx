@@ -11,9 +11,8 @@ const Artifacts = () => {
                 const response = await fetch("http://localhost:5000/artifacts");
                 const result = await response.json();
 
-                // Adjusting to match the response structure
                 if (result.success) {
-                    setArtifacts(result.data); // Access "data" key in the response
+                    setArtifacts(result.data);
                 } else {
                     console.error("Failed to fetch artifacts:", result.message);
                 }
@@ -47,9 +46,9 @@ const Artifacts = () => {
                                     onClick={() => navigate(`/artifact/${artifact._id}`)}
                                     type="button"
                                     className="text-white bg-gradient-to-r from-amber-800 via-amber-700 to-amber-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-amber-300 dark:focus:ring-amber-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
-                                    <div className="flex justify-center items-center gap-2">
+                                    <div className="flex justify-center items-center gap-1">
                                         View Details
-                                        <img className="h-[20px]" src="https://i.ibb.co.com/B4QDVqn/icons8-magnifier-48.png" alt="" />
+                                        <img className="h-[20px]" src="https://i.ibb.co.com/Lv7FSb3/icons8-file-preview-50-1.png" alt="" />
                                     </div>
                                 </button>
                             </div>

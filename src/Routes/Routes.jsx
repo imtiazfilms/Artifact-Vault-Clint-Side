@@ -6,8 +6,10 @@ import Register from "../Pages/Register";
 import Error from "../Pages/Error";
 import AddArtifact from "../Pages/AddArtifact";
 import Artifacts from "../Pages/Artifacts";
-import ArtifactDetails from "../Pages/ArtifactDetails";
 import PrivetRoute from "./PrivetRoute";
+import ArtifactDetails from "../Pages/ArtifactDetails";
+import LikedArtifacts from "../Pages/LikedArtifacts";
+
 
 
 
@@ -37,8 +39,12 @@ const Routes = createBrowserRouter([
                 element: <Artifacts></Artifacts>
             },
             {
-                path: "/artifact-details/:id",
-                element: <ArtifactDetails></ArtifactDetails>
+                path: "/artifact/:id",
+                element: <PrivetRoute><ArtifactDetails></ArtifactDetails></PrivetRoute>
+            },
+            {
+                path: "/liked-artifacts",
+                element: <PrivetRoute><LikedArtifacts></LikedArtifacts></PrivetRoute>
             }
         ]
     },

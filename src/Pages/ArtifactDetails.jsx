@@ -1,60 +1,108 @@
+import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import { useContext } from "react";
-import { authContext } from "../Firebase/AuthProvider";
 
 const ArtifactDetails = () => {
-  const { user } = useContext(authContext);
-  const navigate = useNavigate();
   const { id } = useParams();
   const [artifact, setArtifact] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    if (!user) {
-      navigate("/login"); // Redirect to login if user is not logged in
-      return;
-    }
-
     const fetchArtifact = async () => {
       try {
         const response = await fetch(`http://localhost:5000/artifacts/${id}`);
+        if (!response.ok) {
+          throw new Error("Failed to fetch artifact");
+        }
         const data = await response.json();
         setArtifact(data);
-        setLoading(false);
       } catch (error) {
-        console.error("Error fetching artifact:", error);
-        setLoading(false);
+        setError(error.message);
       }
     };
 
     fetchArtifact();
-  }, [id, user, navigate]);
+  }, [id]);
 
-  if (loading) {
-    return <div className="text-center">Loading...</div>;
-  }
+  const handleLike = async () => {
+    if (!artifact) return;
+  
+    // Optimistically update the like count in the local state
+    const updatedArtifact = { ...artifact, likeCount: artifact.likeCount + 1 };
+    setArtifact(updatedArtifact);
+  
+    try {
+      const response = await fetch(`http://localhost:5000/artifacts/${id}/like`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+  
+      if (response.ok) {
+        const result = await response.json();
+        // Update the artifact state only if the server response is successful
+        if (result.success && result.data) {
+          setArtifact(result.data); // Update with the latest like count from the server
+        } else {
+          console.error("Failed to update likes on the server");
+        }
+      } else {
+        console.error("Failed to update likes");
+      }
+    } catch (error) {
+      console.error("Error updating likes:", error);
+    }
+  };
+  
+  
+  
+
+  if (error) return <p className="text-red-600 text-center mt-10">{error}</p>;
+  if (!artifact) return <p className="text-gray-500 text-center mt-10">Artifact not found</p>;
 
   return (
-    <div className="max-w-4xl mx-auto mt-10 p-5 bg-white shadow-md rounded-md">
-      <img
-        src={artifact.image}
-        alt={artifact.name}
-        className="w-full h-64 object-cover rounded"
-      />
-      <h1 className="text-3xl font-bold mt-4">{artifact.name}</h1>
-      <p className="text-gray-700 mt-2">{artifact.historicalContext}</p>
-      <p className="text-sm text-gray-500 mt-2">Created At: {artifact.createdAt}</p>
-      <p className="text-sm text-gray-500">Discovered At: {artifact.discoveredAt}</p>
-      <p className="text-sm text-gray-500">Discovered By: {artifact.discoveredBy}</p>
-      <p className="text-sm text-gray-500">Present Location: {artifact.presentLocation}</p>
-      <p className="text-sm text-gray-500">Likes: {artifact.likeCount}</p>
-      <button
-        className="btn btn-secondary mt-4"
-        onClick={() => alert("Like functionality not implemented yet.")}
-      >
-        Like
-      </button>
+    <div className="artifact-details container mx-auto p-6 mt-5 bg-white/10 shadow-md rounded-lg">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+        <div className="overflow-hidden rounded-lg shadow-lg">
+          <img
+            src={artifact.image}
+            alt={artifact.name}
+            className="w-full h-auto object-contain"
+          />
+        </div>
+        <div>
+          <h1 className="text-5xl font-bold mb-4 text-gray-800">{artifact.name}</h1>
+          <p className="text-lg text-gray-700 leading-relaxed">{artifact.historicalContext}</p>
+          <div className="mt-6">
+            <p className="text-sm text-gray-500">
+              <strong>Created At:</strong> {artifact.createdAt}
+            </p>
+            <p className="text-sm text-gray-500">
+              <strong>Discovered At:</strong> {artifact.discoveredAt}
+            </p>
+            <p className="text-sm text-gray-500">
+              <strong>Discovered By:</strong> {artifact.discoveredBy}
+            </p>
+            <p className="text-sm text-gray-500">
+              <strong>Present Location:</strong> {artifact.presentLocation}
+            </p>
+            <p className="text-sm text-gray-500">
+              <strong>Added By:</strong> {artifact.addedByName} ({artifact.addedByEmail})
+            </p>
+          </div>
+          <div className="flex items-center mt-6">
+            <p className="text-xl text-gray-700 font-semibold mr-4">
+              Likes: {artifact.likeCount}
+            </p>
+            <button
+              onClick={handleLike}
+              className="px-5 py-2.5 bg-gradient-to-r from-blue-500 to-indigo-600 text-white rounded-lg shadow hover:shadow-lg hover:from-blue-600 hover:to-indigo-700 focus:outline-none"
+            >
+              Like
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
