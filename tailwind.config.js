@@ -2,7 +2,7 @@
 
 import daisyui from 'daisyui';
 import filters from 'tailwindcss-filters';
-
+import flowbitePlugin from 'flowbite/plugin';
 
 export default {
   content: [
@@ -14,7 +14,8 @@ export default {
   },
   plugins: [
    daisyui,
-   filters
+   filters,
+   flowbitePlugin
   ],
   daisyui: {
     themes: ["retro"],

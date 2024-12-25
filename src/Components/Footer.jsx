@@ -1,6 +1,6 @@
 const Footer = () => {
     return (
-        <div className="bg-base-300 pt-5">
+        <div className="bg-base-300 pt-5 mt-5">
             <div className="bg-[#1d191a] rounded-full w-[100px] mx-auto">
                 <img className="rounded-full" src="https://i.ibb.co.com/6DCx92j/Gemini-Generated-Image-977h7y977h7y977h.jpg" alt="" />
             </div>
