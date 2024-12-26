@@ -4,7 +4,7 @@
 Artifact Vault is a web application designed to allow users to browse, like, and manage artifacts from various categories. The project aims to provide an intuitive platform for users to discover historical, artistic, and cultural artifacts, with features for user interaction and artifact management.
 
 ## Live URL
-[Artifact Vault Live Demo](https://artifacts-vault.netlify.app/)
+[Artifact Vault](https://artifacts-vault.netlify.app/)
 
 ## Key Features
 - **User Authentication:** Allows users to sign up, log in, and manage their profiles using Firebase authentication.
