@@ -3,30 +3,53 @@ import { useNavigate } from "react-router-dom";
 
 const Artifacts = () => {
     const [artifacts, setArtifacts] = useState([]);
+    const [searchTerm, setSearchTerm] = useState("");  // State to store the search term
     const navigate = useNavigate();
 
-    useEffect(() => {
-        const fetchArtifacts = async () => {
-            try {
-                const response = await fetch("http://localhost:5000/artifacts");
-                const result = await response.json();
+    // Function to fetch artifacts from the backend based on the search term
+    const fetchArtifacts = async (search = "") => {
+        try {
+            const response = await fetch(`http://localhost:5000/artifacts?search=${search}`);
+            const result = await response.json();
 
-                if (result.success) {
-                    setArtifacts(result.data);
-                } else {
-                    console.error("Failed to fetch artifacts:", result.message);
-                }
-            } catch (error) {
-                console.error("Error fetching artifacts:", error);
+            if (result.success) {
+                setArtifacts(result.data);
+            } else {
+                console.error("Failed to fetch artifacts:", result.message);
             }
-        };
+        } catch (error) {
+            console.error("Error fetching artifacts:", error);
+        }
+    };
 
+    // Fetch all artifacts when the page loads
+    useEffect(() => {
         fetchArtifacts();
     }, []);
+
+    // Handle the search input change and update artifacts
+    const handleSearch = (e) => {
+        const searchQuery = e.target.value;
+        setSearchTerm(searchQuery);  // Update search term state
+        fetchArtifacts(searchQuery);  // Fetch filtered artifacts
+    };
 
     return (
         <div>
             <h1 className="text-center text-5xl font-serif mb-10 text-gray-800">All Artifacts</h1>
+            
+            {/* Search Input */}
+            <div className="flex justify-center mb-6">
+                <input
+                    type="text"
+                    placeholder="Search by Artifact Name"
+                    value={searchTerm}
+                    onChange={handleSearch}
+                    className="p-2 rounded-lg border-2 border-gray-300 focus:outline-none focus:border-gray-600"
+                />
+            </div>
+
+            {/* Display Artifacts */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {artifacts.length > 0 ? (
                     artifacts.map((artifact) => (
@@ -59,7 +82,6 @@ const Artifacts = () => {
                 )}
             </div>
         </div>
-
     );
 };
 

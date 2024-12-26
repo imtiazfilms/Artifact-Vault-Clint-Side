@@ -1,5 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { authContext } from "../Firebase/AuthProvider";
+import { Link } from "react-router-dom";
+import Swal from "sweetalert2"; // Import SweetAlert2
 
 const MyArtifacts = () => {
   const { user } = useContext(authContext); // Access user
@@ -30,6 +32,40 @@ const MyArtifacts = () => {
     fetchUserArtifacts();
   }, [user]);
 
+  const handleDelete = async (artifactId) => {
+    // Show SweetAlert2 confirmation
+    Swal.fire({
+      title: "Are you sure?",
+      text: "This action will permanently delete the artifact.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Yes, delete it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          const response = await fetch(`http://localhost:5000/artifacts/${artifactId}`, {
+            method: "DELETE",
+          });
+
+          if (!response.ok) {
+            throw new Error("Failed to delete artifact");
+          }
+
+          // Remove the deleted artifact from the state
+          setArtifacts(artifacts.filter((artifact) => artifact._id !== artifactId));
+
+          // Show success message
+          Swal.fire("Deleted!", "The artifact has been deleted.", "success");
+        } catch (err) {
+          setError(err.message);
+          Swal.fire("Error", "Failed to delete the artifact.", "error");
+        }
+      }
+    });
+  };
+
   if (error) return <p className="text-red-600 text-center mt-10">Error: {error}</p>;
   if (!artifacts.length) return <p className="text-center text-gray-500 mt-10">You have not added any artifacts yet.</p>;
 
@@ -49,10 +85,15 @@ const MyArtifacts = () => {
               <h3 className="text-xl font-semibold text-gray-700">{artifact.name}</h3>
               <p className="text-sm text-gray-500 mt-2">{artifact.historicalContext}</p>
               <div className="mt-4 flex justify-between">
-                <button className="px-4 py-2 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-lg shadow hover:from-blue-600 hover:to-blue-700">
-                  Update
-                </button>
-                <button className="px-4 py-2 bg-gradient-to-r from-red-500 to-red-600 text-white rounded-lg shadow hover:from-red-600 hover:to-red-700">
+                <Link to={`/update/${artifact._id}`}>
+                  <button className="px-4 py-2 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-lg shadow hover:from-blue-600 hover:to-blue-700">
+                    Update
+                  </button>
+                </Link>
+                <button
+                  onClick={() => handleDelete(artifact._id)}
+                  className="px-4 py-2 bg-gradient-to-r from-red-500 to-red-600 text-white rounded-lg shadow hover:from-red-600 hover:to-red-700"
+                >
                   Delete
                 </button>
               </div>
