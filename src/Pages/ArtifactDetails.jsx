@@ -35,13 +35,13 @@ const ArtifactDetails = () => {
     // Handle like-dislike toggle
     const handleToggle = async () => {
         if (!artifact || !user) return;
-
+    
         const updatedLikeCount = isLiked ? artifact.likeCount - 1 : artifact.likeCount + 1;
-
+    
         // Optimistically update the UI
         setArtifact({ ...artifact, likeCount: updatedLikeCount });
         setIsLiked(!isLiked);
-
+    
         try {
             const response = await fetch(`http://localhost:5000/artifacts/${id}/like`, {
                 method: "PATCH",
@@ -50,7 +50,7 @@ const ArtifactDetails = () => {
                 },
                 body: JSON.stringify({ userEmail: user.email, action: isLiked ? "dislike" : "like" }),
             });
-
+    
             if (!response.ok) {
                 console.error("Failed to update like status on the server");
             }
@@ -58,6 +58,7 @@ const ArtifactDetails = () => {
             console.error("Error updating like status:", error);
         }
     };
+    
 
     // Render error message
     if (error) return <p className="text-red-600 text-center mt-10">{error}</p>;

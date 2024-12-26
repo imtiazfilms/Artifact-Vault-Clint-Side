@@ -106,7 +106,7 @@ const Navbar = () => {
                                     <NavLink to="/my-artifacts">My Artifacts</NavLink>
                                 </li>
                                 <li>
-                                    <NavLink to="/liked">Liked Artifacts</NavLink>
+                                    <NavLink to="/liked-artifacts">Liked Artifacts</NavLink>
                                 </li>
                                 <li>
                                     <button onClick={handleLogout} className="btn btn-error w-full">

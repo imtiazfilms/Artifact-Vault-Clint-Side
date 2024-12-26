@@ -74,7 +74,7 @@ const MyArtifacts = () => {
       <h1 className="text-3xl font-bold text-center mb-6 text-gray-800">Your Artifacts</h1>
       <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {artifacts.map((artifact) => (
-          <li key={artifact._id} className="artifact-card bg-white shadow-md rounded-lg overflow-hidden">
+          <li key={artifact._id} className="artifact-card bg-white/50 shadow-md rounded-lg overflow-hidden">
             {/* Artifact Image */}
             <img
               src={artifact.image || "https://via.placeholder.com/300"}

@@ -52,10 +52,10 @@ const Routes = createBrowserRouter([
                 path: "/update/:id",
                 element: <PrivetRoute><UpdateArtifact></UpdateArtifact></PrivetRoute>
             },
-            {
-                path: "/liked",
-                element: <PrivetRoute><LikedArtifacts></LikedArtifacts></PrivetRoute>
-            }
+           {
+            path: "/liked-artifacts",
+            element: <PrivetRoute><LikedArtifacts></LikedArtifacts></PrivetRoute>
+           }
         ]
     },
     {
