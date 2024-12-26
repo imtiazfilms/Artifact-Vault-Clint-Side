@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom"; // For navigation to artifact details page
+import { Link } from "react-router-dom";
 
 const LatestArtifacts = () => {
     const [latestArtifacts, setLatestArtifacts] = useState([]);
@@ -43,7 +43,7 @@ const LatestArtifacts = () => {
                             <h3 className="text-2xl font-semibold text-gray-800">{artifact.name}</h3>
                             <p className="text-gray-700 text-sm mt-2">{artifact.shortDescription}</p>
                             <Link
-                                to={`/artifact/${artifact._id}`} // Link to the detailed artifact page
+                                to={`/artifact/${artifact._id}`}
                                 className="mt-4 inline-block text-blue-600 hover:underline"
                             >
                                 View Details

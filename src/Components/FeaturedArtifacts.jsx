@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom"; // For navigation to artifact details page
-
+import { Link } from "react-router-dom";
 const FeaturedArtifacts = () => {
     const [featuredArtifacts, setFeaturedArtifacts] = useState([]);
     const [error, setError] = useState(null);
@@ -49,7 +48,7 @@ const FeaturedArtifacts = () => {
                                 Likes: {artifact.likeCount}
                             </p>
                             <Link
-                                to={`/artifact/${artifact._id}`} // Link to the detailed artifact page
+                                to={`/artifact/${artifact._id}`}
                                 className="mt-4 inline-block text-blue-600 hover:underline"
                             >
                                 View Details

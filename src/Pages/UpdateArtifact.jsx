@@ -4,7 +4,6 @@ import { useParams, useNavigate } from "react-router-dom";
 
 const UpdateArtifact = () => {
   const { id } = useParams();
-  const navigate = useNavigate();
 
   const [artifact, setArtifact] = useState({
     name: "",

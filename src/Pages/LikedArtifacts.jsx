@@ -39,11 +39,6 @@ const LikedArtifacts = () => {
                         <img src={artifact.image} alt={artifact.name} className="w-full h-64 object-cover rounded-t-lg mb-4" />
                         <h2 className="text-xl font-semibold text-gray-800 mb-2">{artifact.name}</h2>
                         <p className="text-gray-600 text-sm mb-4">{artifact.historicalContext}</p>
-                        <div className="text-center">
-                            <button className="bg-blue-500 text-white py-2 px-4 rounded-full hover:bg-blue-600 transition duration-200">
-                                View Details
-                            </button>
-                        </div>
                     </div>
                 ))}
             </div>

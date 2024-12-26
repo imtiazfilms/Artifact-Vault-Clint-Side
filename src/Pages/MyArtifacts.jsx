@@ -1,10 +1,10 @@
 import { useContext, useEffect, useState } from "react";
 import { authContext } from "../Firebase/AuthProvider";
 import { Link } from "react-router-dom";
-import Swal from "sweetalert2"; // Import SweetAlert2
+import Swal from "sweetalert2";
 
 const MyArtifacts = () => {
-  const { user } = useContext(authContext); // Access user
+  const { user } = useContext(authContext); 
   const [artifacts, setArtifacts] = useState([]);
   const [error, setError] = useState(null);
 
@@ -33,7 +33,6 @@ const MyArtifacts = () => {
   }, [user]);
 
   const handleDelete = async (artifactId) => {
-    // Show SweetAlert2 confirmation
     Swal.fire({
       title: "Are you sure?",
       text: "This action will permanently delete the artifact.",
@@ -53,10 +52,8 @@ const MyArtifacts = () => {
             throw new Error("Failed to delete artifact");
           }
 
-          // Remove the deleted artifact from the state
           setArtifacts(artifacts.filter((artifact) => artifact._id !== artifactId));
 
-          // Show success message
           Swal.fire("Deleted!", "The artifact has been deleted.", "success");
         } catch (err) {
           setError(err.message);
@@ -75,7 +72,6 @@ const MyArtifacts = () => {
       <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {artifacts.map((artifact) => (
           <li key={artifact._id} className="artifact-card bg-white/50 shadow-md rounded-lg overflow-hidden">
-            {/* Artifact Image */}
             <img
               src={artifact.image || "https://via.placeholder.com/300"}
               alt={artifact.name}

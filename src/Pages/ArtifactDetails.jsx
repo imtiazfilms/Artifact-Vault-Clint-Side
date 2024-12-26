@@ -4,12 +4,11 @@ import { authContext } from "../Firebase/AuthProvider";
 
 const ArtifactDetails = () => {
     const { id } = useParams();
-    const { user } = useContext(authContext); // Access the logged-in user's email
+    const { user } = useContext(authContext);
     const [artifact, setArtifact] = useState(null);
     const [error, setError] = useState(null);
-    const [isLiked, setIsLiked] = useState(false); // Track if the artifact is liked by the user
-
-    // Fetch artifact details
+    const [isLiked, setIsLiked] = useState(false);
+    
     useEffect(() => {
         const fetchArtifact = async () => {
             try {
@@ -20,7 +19,6 @@ const ArtifactDetails = () => {
                 const data = await response.json();
                 setArtifact(data);
 
-                // Check if the user has liked the artifact
                 if (data.userActions && user) {
                     setIsLiked(data.userActions[user.email] === "like");
                 }
@@ -32,13 +30,11 @@ const ArtifactDetails = () => {
         fetchArtifact();
     }, [id, user]);
 
-    // Handle like-dislike toggle
     const handleToggle = async () => {
         if (!artifact || !user) return;
     
         const updatedLikeCount = isLiked ? artifact.likeCount - 1 : artifact.likeCount + 1;
     
-        // Optimistically update the UI
         setArtifact({ ...artifact, likeCount: updatedLikeCount });
         setIsLiked(!isLiked);
     
@@ -60,17 +56,13 @@ const ArtifactDetails = () => {
     };
     
 
-    // Render error message
     if (error) return <p className="text-red-600 text-center mt-10">{error}</p>;
 
-    // Render loading message
     if (!artifact) return <p className="text-gray-500 text-center mt-10">Loading artifact details...</p>;
 
-    // Render artifact details
     return (
         <div className="artifact-details container mx-auto p-6 mt-5 bg-white/10 shadow-md rounded-lg">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
-                {/* Artifact Image */}
                 <div className="overflow-hidden rounded-lg shadow-lg">
                     <img
                         src={artifact.image}
@@ -79,7 +71,6 @@ const ArtifactDetails = () => {
                     />
                 </div>
 
-                {/* Artifact Details */}
                 <div>
                     <h1 className="text-5xl font-bold mb-4 text-gray-800">{artifact.name}</h1>
                     <p className="text-lg text-gray-700 leading-relaxed">{artifact.historicalContext}</p>
@@ -101,7 +92,6 @@ const ArtifactDetails = () => {
                         </p>
                     </div>
 
-                    {/* Like/Dislike Button */}
                     <div className="flex items-center mt-6">
                         <p className="text-xl text-gray-700 font-semibold mr-2">
                             Likes: {artifact.likeCount}

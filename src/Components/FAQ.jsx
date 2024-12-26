@@ -5,7 +5,7 @@ const FAQ = () => {
 
   const toggleFAQ = (index) => {
     if (activeIndex === index) {
-      setActiveIndex(null); // Close the current open FAQ if it's clicked again
+      setActiveIndex(null);
     } else {
       setActiveIndex(index);
     }

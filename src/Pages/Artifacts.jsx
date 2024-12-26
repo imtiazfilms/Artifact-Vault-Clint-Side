@@ -3,10 +3,9 @@ import { useNavigate } from "react-router-dom";
 
 const Artifacts = () => {
     const [artifacts, setArtifacts] = useState([]);
-    const [searchTerm, setSearchTerm] = useState("");  // State to store the search term
+    const [searchTerm, setSearchTerm] = useState(""); 
     const navigate = useNavigate();
 
-    // Function to fetch artifacts from the backend based on the search term
     const fetchArtifacts = async (search = "") => {
         try {
             const response = await fetch(`https://artifact-vault-server-side.vercel.app/artifacts?search=${search}`);
@@ -22,23 +21,20 @@ const Artifacts = () => {
         }
     };
 
-    // Fetch all artifacts when the page loads
     useEffect(() => {
         fetchArtifacts();
     }, []);
 
-    // Handle the search input change and update artifacts
     const handleSearch = (e) => {
         const searchQuery = e.target.value;
-        setSearchTerm(searchQuery);  // Update search term state
-        fetchArtifacts(searchQuery);  // Fetch filtered artifacts
+        setSearchTerm(searchQuery); 
+        fetchArtifacts(searchQuery); 
     };
 
     return (
         <div>
             <h1 className="text-center text-5xl font-serif mb-10 text-gray-800">All Artifacts</h1>
             
-            {/* Search Input */}
             <div className="flex justify-center mb-6">
                 <input
                     type="text"
@@ -49,7 +45,6 @@ const Artifacts = () => {
                 />
             </div>
 
-            {/* Display Artifacts */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {artifacts.length > 0 ? (
                     artifacts.map((artifact) => (
