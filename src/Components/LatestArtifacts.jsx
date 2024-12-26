@@ -8,7 +8,7 @@ const LatestArtifacts = () => {
     useEffect(() => {
         const fetchLatestArtifacts = async () => {
             try {
-                const response = await fetch("http://localhost:5000/latest-artifacts");
+                const response = await fetch("https://artifact-vault-server-side.vercel.app/latest-artifacts");
                 const data = await response.json();
 
                 if (response.ok) {

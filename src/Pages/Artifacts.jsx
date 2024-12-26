@@ -9,7 +9,7 @@ const Artifacts = () => {
     // Function to fetch artifacts from the backend based on the search term
     const fetchArtifacts = async (search = "") => {
         try {
-            const response = await fetch(`http://localhost:5000/artifacts?search=${search}`);
+            const response = await fetch(`https://artifact-vault-server-side.vercel.app/artifacts?search=${search}`);
             const result = await response.json();
 
             if (result.success) {

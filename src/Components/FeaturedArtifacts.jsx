@@ -8,7 +8,7 @@ const FeaturedArtifacts = () => {
     useEffect(() => {
         const fetchFeaturedArtifacts = async () => {
             try {
-                const response = await fetch("http://localhost:5000/featured-artifacts");
+                const response = await fetch("https://artifact-vault-server-side.vercel.app/featured-artifacts");
                 const data = await response.json();
 
                 if (response.ok) {

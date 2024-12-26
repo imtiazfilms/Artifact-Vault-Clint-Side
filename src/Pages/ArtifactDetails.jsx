@@ -13,7 +13,7 @@ const ArtifactDetails = () => {
     useEffect(() => {
         const fetchArtifact = async () => {
             try {
-                const response = await fetch(`http://localhost:5000/artifacts/${id}`);
+                const response = await fetch(`https://artifact-vault-server-side.vercel.app/artifacts/${id}`);
                 if (!response.ok) {
                     throw new Error("Failed to fetch artifact");
                 }
@@ -43,7 +43,7 @@ const ArtifactDetails = () => {
         setIsLiked(!isLiked);
     
         try {
-            const response = await fetch(`http://localhost:5000/artifacts/${id}/like`, {
+            const response = await fetch(`https://artifact-vault-server-side.vercel.app/artifacts/${id}/like`, {
                 method: "PATCH",
                 headers: {
                     "Content-Type": "application/json",

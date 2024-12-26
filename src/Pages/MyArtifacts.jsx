@@ -13,7 +13,7 @@ const MyArtifacts = () => {
 
     const fetchUserArtifacts = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/my-artifacts/${user.email}`);
+        const response = await fetch(`https://artifact-vault-server-side.vercel.app/my-artifacts/${user.email}`);
         if (!response.ok) {
           throw new Error("Failed to fetch artifacts");
         }
@@ -45,7 +45,7 @@ const MyArtifacts = () => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          const response = await fetch(`http://localhost:5000/artifacts/${artifactId}`, {
+          const response = await fetch(`https://artifact-vault-server-side.vercel.app/artifacts/${artifactId}`, {
             method: "DELETE",
           });
 

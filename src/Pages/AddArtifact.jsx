@@ -33,7 +33,7 @@ const AddArtifact = () => {
     };
 
     try {
-      const response = await axios.post("http://localhost:5000/artifacts", artifactData);
+      const response = await axios.post("https://artifact-vault-server-side.vercel.app/artifacts", artifactData);
       if (response.data.success) {
         Swal.fire("Success!", "Artifact added successfully!", "success");
         setFormData({

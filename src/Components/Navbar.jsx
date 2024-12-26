@@ -60,9 +60,9 @@ const Navbar = () => {
                             </NavLink>
                         </ul>
                     </div>
-                    <div className="md:flex items-center gap-2 hidden">
+                    <div className="flex items-center gap-2">
                         <img
-                            className="rounded-full h-[50px] w-[50px]"
+                            className="rounded-full h-[30px] w-[30px] md:h-[50px] md:w-[50px]"
                             src="https://i.ibb.co/6DCx92j/Gemini-Generated-Image-977h7y977h7y977h.jpg"
                             alt="Logo"
                         />
