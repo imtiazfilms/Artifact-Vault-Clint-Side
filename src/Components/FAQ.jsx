@@ -40,19 +40,19 @@ const FAQ = () => {
   ];
 
   return (
-    <div className="faq-container mt-10 bg-white/10 p-6 rounded-lg shadow-md w-[90%] mx-auto">
-      <h2 className="text-3xl font-bold text-center text-gray-800 mb-6">Frequently Asked Questions</h2>
+    <div className="faq-container mt-10 p-6 rounded-lg shadow-md w-[90%] mx-auto">
+      <h2 className="text-3xl font-bold text-center text-base-content	 mb-6">Frequently Asked Questions</h2>
       <div className="faq-list space-y-4">
         {faqs.map((faq, index) => (
           <div key={index} className="faq-item">
             <button
-              className="w-full text-left text-xl font-semibold text-gray-700 py-3 px-4 bg-black/10 rounded-md hover:bg-gray-200 transition-all duration-200"
+              className="w-full text-left text-xl font-semibold text-base-content	 py-3 px-4 bg-black/10 rounded-md hover:bg-gray-200 transition-all duration-200"
               onClick={() => toggleFAQ(index)}
             >
               {faq.question}
             </button>
             {activeIndex === index && (
-              <div className="mt-2 px-4 pb-4 text-gray-600">
+              <div className="mt-2 px-4 pb-4 text-base-content">
                 <p>{faq.answer}</p>
               </div>
             )}

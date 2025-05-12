@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import Swal from "sweetalert2"; // ✅ Import SweetAlert2
 
 const UpdateArtifact = () => {
   const { id } = useParams();
@@ -20,7 +21,6 @@ const UpdateArtifact = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-
     const fetchArtifact = async () => {
       try {
         const response = await fetch(`https://artifact-vault-server-side.vercel.app/artifacts/${id}`);
@@ -31,6 +31,11 @@ const UpdateArtifact = () => {
         setArtifact(data);
       } catch (err) {
         setError("Failed to load artifact details.");
+        Swal.fire({
+          icon: "error",
+          title: "Oops!",
+          text: "Failed to load artifact details.",
+        });
       }
     };
 
@@ -50,6 +55,16 @@ const UpdateArtifact = () => {
     setLoading(true);
 
     try {
+      // Show loading message while updating
+      Swal.fire({
+        title: "Updating artifact...",
+        text: "Please wait while we update the artifact.",
+        allowOutsideClick: false,
+        didOpen: () => {
+          Swal.showLoading();
+        },
+      });
+
       const response = await fetch(`https://artifact-vault-server-side.vercel.app/artifacts/${id}`, {
         method: "PATCH",
         headers: {
@@ -62,8 +77,19 @@ const UpdateArtifact = () => {
         throw new Error(`Failed to update artifact. Status: ${response.status}`);
       }
 
+      // Success alert
+      Swal.fire({
+        icon: "success",
+        title: "Artifact Updated!",
+        text: "The artifact has been successfully updated.",
+      });
     } catch (err) {
-      console.error("Error updating artifact:", err.message); 
+      // Error alert
+      Swal.fire({
+        icon: "error",
+        title: "Update Failed",
+        text: `An error occurred: ${err.message}`,
+      });
     } finally {
       setLoading(false);
     }
@@ -71,7 +97,7 @@ const UpdateArtifact = () => {
 
   return (
     <div className="container mx-auto p-6 mt-5 bg-white/10 shadow-md rounded-lg">
-      <h1 className="text-3xl font-bold text-center mb-6 text-gray-800">Update Artifact</h1>
+      <h1 className="text-3xl font-bold text-center mb-6 text-base-content">Update Artifact</h1>
 
       {/* Show error message if there's an error */}
       {error && <p className="text-red-500 text-center mb-4">{error}</p>}
@@ -79,7 +105,7 @@ const UpdateArtifact = () => {
       <form onSubmit={handleSubmit}>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="col-span-1">
-            <label htmlFor="name" className="block text-gray-700">Name</label>
+            <label htmlFor="name" className="block text-base-content">Name</label>
             <input
               type="text"
               id="name"
@@ -91,7 +117,7 @@ const UpdateArtifact = () => {
             />
           </div>
           <div className="col-span-1">
-            <label htmlFor="image" className="block text-gray-700">Image URL</label>
+            <label htmlFor="image" className="block text-base-content">Image URL</label>
             <input
               type="text"
               id="image"
@@ -103,7 +129,7 @@ const UpdateArtifact = () => {
             />
           </div>
           <div className="col-span-1">
-            <label htmlFor="type" className="block text-gray-700">Type</label>
+            <label htmlFor="type" className="block text-base-content">Type</label>
             <input
               type="text"
               id="type"
@@ -115,7 +141,7 @@ const UpdateArtifact = () => {
             />
           </div>
           <div className="col-span-1">
-            <label htmlFor="historicalContext" className="block text-gray-700">Historical Context</label>
+            <label htmlFor="historicalContext" className="block text-base-content">Historical Context</label>
             <textarea
               id="historicalContext"
               name="historicalContext"
@@ -126,7 +152,7 @@ const UpdateArtifact = () => {
             />
           </div>
           <div className="col-span-1">
-            <label htmlFor="createdAt" className="block text-gray-700">Created At</label>
+            <label htmlFor="createdAt" className="block text-base-content">Created At</label>
             <input
               type="text"
               id="createdAt"
@@ -138,7 +164,7 @@ const UpdateArtifact = () => {
             />
           </div>
           <div className="col-span-1">
-            <label htmlFor="discoveredAt" className="block text-gray-700">Discovered At</label>
+            <label htmlFor="discoveredAt" className="block text-base-content">Discovered At</label>
             <input
               type="text"
               id="discoveredAt"
@@ -150,7 +176,7 @@ const UpdateArtifact = () => {
             />
           </div>
           <div className="col-span-1">
-            <label htmlFor="discoveredBy" className="block text-gray-700">Discovered By</label>
+            <label htmlFor="discoveredBy" className="block text-base-content">Discovered By</label>
             <input
               type="text"
               id="discoveredBy"
@@ -162,7 +188,7 @@ const UpdateArtifact = () => {
             />
           </div>
           <div className="col-span-1">
-            <label htmlFor="presentLocation" className="block text-gray-700">Present Location</label>
+            <label htmlFor="presentLocation" className="block text-base-content">Present Location</label>
             <input
               type="text"
               id="presentLocation"

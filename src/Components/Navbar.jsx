@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { authContext } from "../Firebase/AuthProvider";
 import Swal from "sweetalert2";
+import ThemeToggle from "./ThemeToggle";
 
 const Navbar = () => {
     const { user, handelLogOut } = useContext(authContext);
@@ -83,8 +84,9 @@ const Navbar = () => {
                         </NavLink>
                     </ul>
                 </div>
-
+                
                 <div className="navbar-end">
+                    <ThemeToggle></ThemeToggle>
                     {!user ? (
                         <NavLink to="/login">
                             <p className="btn">Login</p>

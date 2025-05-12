@@ -56,10 +56,10 @@ const AddArtifact = () => {
 
   return (
     <div className="max-w-4xl mx-auto mt-10 p-6 bg-black/5 shadow-lg rounded-lg">
-      <h2 className="text-3xl font-bold mb-6 text-gray-800">Add Artifact</h2>
+      <h2 className="text-3xl font-bold mb-6 text-base-content">Add Artifact</h2>
       <form onSubmit={handleSubmit} className="space-y-6">
         <div>
-          <label className="block text-sm font-medium text-gray-700">Artifact Name</label>
+          <label className="block text-sm font-medium text-base-content">Artifact Name</label>
           <input
             type="text"
             name="name"
@@ -71,7 +71,7 @@ const AddArtifact = () => {
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700">Artifact Image (URL)</label>
+          <label className="block text-sm font-medium text-base-content">Artifact Image (URL)</label>
           <input
             type="url"
             name="image"
@@ -83,7 +83,7 @@ const AddArtifact = () => {
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700">Artifact Type</label>
+          <label className="block text-sm font-medium text-base-content">Artifact Type</label>
           <select
             name="type"
             value={formData.type}
@@ -97,7 +97,7 @@ const AddArtifact = () => {
           </select>
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700">Historical Context</label>
+          <label className="block text-sm font-medium text-base-content">Historical Context</label>
           <textarea
             name="historicalContext"
             value={formData.historicalContext}
@@ -108,7 +108,7 @@ const AddArtifact = () => {
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700">Created At</label>
+          <label className="block text-sm font-medium text-base-content">Created At</label>
           <input
             type="text"
             name="createdAt"
@@ -120,7 +120,7 @@ const AddArtifact = () => {
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700">Discovered At</label>
+          <label className="block text-sm font-medium text-base-content">Discovered At</label>
           <input
             type="text"
             name="discoveredAt"
@@ -132,7 +132,7 @@ const AddArtifact = () => {
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700">Discovered By</label>
+          <label className="block text-sm font-medium text-base-content">Discovered By</label>
           <input
             type="text"
             name="discoveredBy"
@@ -144,7 +144,7 @@ const AddArtifact = () => {
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700">Present Location</label>
+          <label className="block text-sm font-medium text-base-content">Present Location</label>
           <input
             type="text"
             name="presentLocation"
@@ -156,7 +156,7 @@ const AddArtifact = () => {
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700">Added By (Name)</label>
+          <label className="block text-sm font-medium text-base-content">Added By (Name)</label>
           <input
             type="text"
             value={user?.displayName || "Anonymous"}
@@ -165,7 +165,7 @@ const AddArtifact = () => {
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700">Added By (Email)</label>
+          <label className="block text-sm font-medium text-base-content">Added By (Email)</label>
           <input
             type="email"
             value={user?.email || "unknown@example.com"}
@@ -176,7 +176,7 @@ const AddArtifact = () => {
         <button type="submit" className="text-white bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 dark:focus:ring-teal-800 shadow-lg shadow-teal-500/50 dark:shadow-lg dark:shadow-teal-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 w-full">
           <div className="flex justify-center items-start gap-2">
             Add Artifact
-            <img src="https://i.ibb.co.com/wJyXDWM/icons8-send-to-cloud-24.png" alt="" />
+            <img src="https://i.ibb.co.com/wJyXDWM/icons8-send-to-cloud-24.png" alt="cloud" />
           </div>
         </button>
 

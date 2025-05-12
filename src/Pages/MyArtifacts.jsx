@@ -4,16 +4,20 @@ import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 
 const MyArtifacts = () => {
-  const { user } = useContext(authContext); 
+  const { user } = useContext(authContext);
   const [artifacts, setArtifacts] = useState([]);
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true); // ✅ Add loading state
 
   useEffect(() => {
     if (!user) return;
 
     const fetchUserArtifacts = async () => {
       try {
-        const response = await fetch(`https://artifact-vault-server-side.vercel.app/my-artifacts/${user.email}`);
+        setLoading(true); // ✅ Start loading
+        const response = await fetch(
+          `https://artifact-vault-server-side.vercel.app/my-artifacts/${user.email}`
+        );
         if (!response.ok) {
           throw new Error("Failed to fetch artifacts");
         }
@@ -26,6 +30,8 @@ const MyArtifacts = () => {
         }
       } catch (err) {
         setError(err.message);
+      } finally {
+        setLoading(false); // ✅ End loading
       }
     };
 
@@ -44,9 +50,12 @@ const MyArtifacts = () => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          const response = await fetch(`https://artifact-vault-server-side.vercel.app/artifacts/${artifactId}`, {
-            method: "DELETE",
-          });
+          const response = await fetch(
+            `https://artifact-vault-server-side.vercel.app/artifacts/${artifactId}`,
+            {
+              method: "DELETE",
+            }
+          );
 
           if (!response.ok) {
             throw new Error("Failed to delete artifact");
@@ -64,14 +73,32 @@ const MyArtifacts = () => {
   };
 
   if (error) return <p className="text-red-600 text-center mt-10">Error: {error}</p>;
-  if (!artifacts.length) return <p className="text-center text-gray-500 mt-10">You have not added any artifacts yet.</p>;
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-[40vh]">
+        <div className="relative w-16 h-16">
+          <div className="absolute top-0 left-0 w-16 h-16 border-4 border-t-transparent border-green-500 rounded-full animate-spin"></div>
+          <div className="absolute top-2 left-2 w-12 h-12 border-4 border-t-transparent border-green-400 rounded-full animate-spin"></div>
+          <div className="absolute top-4 left-4 w-8 h-8 bg-green-500 rounded-full"></div>
+        </div>
+      </div>
+    );
+  }
+
+  if (!artifacts.length) {
+    return <p className="text-center text-gray-500 mt-10">You have not added any artifacts yet.</p>;
+  }
 
   return (
     <div className="my-artifacts container mx-auto p-6 mt-5 bg-white/10 shadow-md rounded-lg">
       <h1 className="text-3xl font-bold text-center mb-6 text-gray-800">Your Artifacts</h1>
       <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {artifacts.map((artifact) => (
-          <li key={artifact._id} className="artifact-card bg-white/50 shadow-md rounded-lg overflow-hidden">
+          <li
+            key={artifact._id}
+            className="artifact-card bg-white/50 shadow-md rounded-lg overflow-hidden"
+          >
             <img
               src={artifact.image || "https://via.placeholder.com/300"}
               alt={artifact.name}

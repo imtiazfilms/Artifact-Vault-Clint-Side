@@ -30,13 +30,13 @@ const Footer = () => {
                     <span className="footer-title">Follow Us</span>
                     <div className="flex gap-4">
                         <a href="https://facebook.com" className="link link-hover">
-                            <img src="https://i.ibb.co.com/QfDHwzW/icons8-facebook-logo-48.png" alt="" />
+                            <img src="https://i.ibb.co.com/QfDHwzW/icons8-facebook-logo-48.png" alt="facebook logo" />
                         </a>
                         <a href="https://twitter.com" className="link link-hover">
-                            <img src="https://i.ibb.co.com/bRbzy9y/icons8-twitter-logo-48.png" alt="" />
+                            <img src="https://i.ibb.co.com/bRbzy9y/icons8-twitter-logo-48.png" alt="twitter logo" />
                         </a>
                         <a href="https://instagram.com" className="link link-hover">
-                            <img src="https://i.ibb.co.com/Ttpw3sd/icons8-instagram-logo-48.png" alt="" />
+                            <img src="https://i.ibb.co.com/Ttpw3sd/icons8-instagram-logo-48.png" alt="instagram logo" />
                         </a>
                     </div>
                 </div>

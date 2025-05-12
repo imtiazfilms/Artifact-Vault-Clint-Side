@@ -13,11 +13,11 @@ export default {
     extend: {},
   },
   plugins: [
-   daisyui,
-   filters,
-   flowbitePlugin
+    daisyui,
+    filters,
+    flowbitePlugin
   ],
   daisyui: {
-    themes: ["retro"],
+    themes: ["light", "dark", "retro", "forest", "black", "dim", "dracula", "abyss", "synthwave", "coffee", "lemonade"],
   },
 }

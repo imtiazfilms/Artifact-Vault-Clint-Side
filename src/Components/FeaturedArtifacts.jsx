@@ -29,7 +29,7 @@ const FeaturedArtifacts = () => {
 
     return (
         <div className="featured-artifacts container mx-auto p-6 mt-5 bg-white/10 shadow-md rounded-lg">
-            <h2 className="text-3xl font-bold mb-6 text-center text-gray-800">Featured Artifacts</h2>
+            <h2 className="text-3xl font-bold mb-6 text-center text-base-content">Featured Artifacts</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6">
                 {featuredArtifacts.map((artifact) => (
                     <div
@@ -42,9 +42,9 @@ const FeaturedArtifacts = () => {
                             className="w-full h-64 object-cover rounded-t-lg"
                         />
                         <div className="p-4">
-                            <h3 className="text-2xl font-semibold text-gray-800">{artifact.name}</h3>
-                            <p className="text-gray-700 text-sm mt-2">{artifact.shortDescription}</p>
-                            <p className="text-xl text-gray-600 mt-2">
+                            <h3 className="text-2xl font-semibold text-base-content	">{artifact.name}</h3>
+                            <p className="text-base-content text-sm mt-2">{artifact.shortDescription}</p>
+                            <p className="text-xl text-base-content	 mt-2">
                                 Likes: {artifact.likeCount}
                             </p>
                             <Link
